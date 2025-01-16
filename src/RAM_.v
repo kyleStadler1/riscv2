@@ -32,21 +32,28 @@ module RAM_ #(
     output [31:0] doutA,
     output reg readValidA,
     input [3:0] web,
+    input enB,
     input [31:0] addrB,
     input [31:0] dinB,
     output [31:0] doutB,
     output reg readValidB,
     output reg NOTready
     );
+    reg tempA, tempB;
     always @(posedge clk) begin
         if (reset) begin
             readValidA <= 1'b0;
+            tempA <= 1'b0;
             readValidB <= 1'b0;
+            tempB <= 1'b0;
             NOTready <= 1'b0;
         end else begin
-            readValidA <= 1'b1;
-            readValidB <= web == 4'b0000;
+            tempA <= 1'b1;
+            tempB <= web == 4'b0000 & enB;
             NOTready <= 1'b0;
+            
+            readValidA <= tempA;
+            readValidB <= tempB;
         end
     end
     

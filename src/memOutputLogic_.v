@@ -32,5 +32,5 @@ module memOutputLogic_(
 
     );
     assign dout = rawDin;
-    assign readValid = (memOp == 2'b11 | memOp == 2'b00) ? 1'b0 : readValidIn;
+    assign readValid = readValidIn;
 endmodule
